@@ -22,16 +22,36 @@ module.exports = (socket) => {
       io.to(socket.id).emit("userId", user._id);
       console.log("user " + socket.id + " is connected.");
 
-      const chats = await Chat.find({ sender: userId })
-        .populate({
+      const chats = await Chat.find({ sender: userId }).aggregate([
+        {
+          $unwind: "$chats",
+        },
+        {
+          $match: {
+            "chats.messages.read": false,
+          },
+        },
+        {
+          $group: {
+            _id: "$chats.receiver",
+            unreadCount: {
+              $sum: 1,
+            },
+            lastMessage: {
+              $last: "$chats.messages.message",
+            }
+          },
+        },
+      ])
+      const populatedChats = await Chat.populate(chats, {
+        path: "_id",
+        select: "username profileImage",
+      });
+       const suser = await User.findById({_id: userId}).populate({
           path: "sender",
           select: "username prfileImage isOnline lastOnline",
         })
-        .populate({
-          path: "chats.receiver",
-          select: "username prfileImage isOnline lastOnline",
-        });
-      socket.emit("recieve-all-chats", chats);
+      socket.emit("recieve-all-chats", {user: suser,populatedChats});
     });
 
     // send message to other user
@@ -143,16 +163,37 @@ module.exports = (socket) => {
 
     // get user all chats
     socket.on("get-all-chats", async (senderId) => {
-      const chats = await Chat.find({ sender: senderId })
-        .populate({
+
+      const chats = await Chat.find({ sender: senderId }).aggregate([
+        {
+          $unwind: "$chats",
+        },
+        {
+          $match: {
+            "chats.messages.read": false,
+          },
+        },
+        {
+          $group: {
+            _id: "$chats.receiver",
+            unreadCount: {
+              $sum: 1,
+            },
+            lastMessage: {
+              $last: "$chats.messages.message",
+            }
+          },
+        },
+      ])
+      const populatedChats = await Chat.populate(chats, {
+        path: "_id",
+        select: "username profileImage",
+      });
+       const user = await User.findById({_id: senderId}).populate({
           path: "sender",
           select: "username prfileImage isOnline lastOnline",
         })
-        .populate({
-          path: "chats.receiver",
-          select: "username prfileImage isOnline lastOnline",
-        });
-      socket.emit("recieve-all-chats", chats);
+      socket.emit("recieve-all-chats", {user,populatedChats});
     });
 
     // get user specific chat information
