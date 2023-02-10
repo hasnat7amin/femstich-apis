@@ -1,4 +1,3 @@
-const Category = require("../../../models/Category");
 const Product = require("../../../models/Product");
 const User = require("../../../models/User");
 const sendErrorResponse = require("../../../utils/send-error-response");

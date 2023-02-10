@@ -3,27 +3,27 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
   try {
-    const { id, name, phone, addressLine1, addressLine2, city, state, zipCode, country } = req.body;
+    const { address, city, province, is_default } = req.body;
 
-    const address = await Address.findByIdAndUpdate(id, {
-        name,
-        phone,
-        addressLine1,
-        addressLine2,
+    const user_address = await Address.findByIdAndUpdate(
+      req.params.id,
+      {
+        address,
         city,
-        state,
-        zipCode,
-        country
-      }, { new: true });
-      if (!address) {
-         throw new Error("Address not found.");
-      }
+        province,
+        default: is_default,
+      },
+      { new: true }
+    );
+    if (!user_address) {
+      throw new Error("Address not found.");
+    }
     return res.status(201).json({
       code: 201,
       status: true,
       message: "Address updated successfully",
       result: {
-        address: await Address.find({userId: req.user._id}),
+        address: await Address.find({ userId: req.user._id }),
       },
     });
   } catch (error) {

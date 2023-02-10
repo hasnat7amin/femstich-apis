@@ -16,4 +16,10 @@ module.exports= {
     DeleteAddress: require("./address/delete-address"),
     GetAddress: require("./address/get-address"),
     UpdateAddress: require("./address/update-address"),
+
+    // profile
+    ChangeImage: require("./profile/change-image"),
+    ChangeDetails: require("./profile/change-details"),
+    ChangePassword: require("./profile/change-password"),
+    ContactUs: require("./profile/contact-us"),
 }

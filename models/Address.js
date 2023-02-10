@@ -6,36 +6,21 @@ const AddressSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    name: {
+    default: {
+        type: Boolean,
+        default: false
+    },
+    address: {
         type: String,
         required: true
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    addressLine1: {
-        type: String,
-        required: true
-    },
-    addressLine2: {
-        type: String,
     },
     city: {
         type: String,
         required: true
     },
-    state: {
+    province: {
         type: String,
         required: true
-    },
-    zipCode: {
-        type: String,
-        required: true
-    },
-    country: {
-        type: String,
-        default: "Pakistan"
     }
 }, {
     timestamps: true,

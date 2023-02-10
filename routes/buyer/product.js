@@ -12,5 +12,5 @@ router.get("/home-details", authorize, GetProductHomeDetails);
 router.get("/:id", authorize, GetProductById);
 router.put("/:id/like", authorize, LikeProduct);
 router.put("/:id/dislike", authorize, DislikeProduct);
-
+// router.get("/:title", authorize, )
 module.exports = router;

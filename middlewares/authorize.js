@@ -1,5 +1,6 @@
 const JWT = require("jsonwebtoken");
 const User = require("../models/User");
+const sendErrorResponse = require("../utils/send-error-response");
 require("dotenv").config();
 
 module.exports = async (req, res, next) => {
@@ -23,19 +24,18 @@ module.exports = async (req, res, next) => {
             message: "Failed to verify token.",
             result: { err },
           });
-        } else {
+        } 
+        else {
           let user = await User.findById(decodedToken.id);
           req.user = user;
+          next();
         }
       }
-    );
-    next();
+    ).catch((err)=>{
+     throw new Error(err.message)
+    })
+    
   } catch (err) {
-    return res.status(400).json({
-      code: 400,
-      success: false,
-      message: "Failed to Verify Token.",
-      result: { err },
-    });
+    sendErrorResponse(res, 400, "Failed to verify Token.", err.message);
   }
 };

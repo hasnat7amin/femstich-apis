@@ -3,34 +3,21 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
   try {
-    const {
-      name,
-      phone,
-      addressLine1,
-      addressLine2,
-      city,
-      state,
-      zipCode,
-      country,
-    } = req.body;
+    const { address, city, province, is_default } = req.body;
 
-    const address = await Address.create({
+    const user_address = await Address.create({
       userId: req.user._id,
-      name,
-      phone,
-      addressLine1,
-      addressLine2,
+      address,
       city,
-      state,
-      zipCode,
-      country,
+      province,
+      default: is_default,
     });
     return res.status(201).json({
       code: 201,
       status: true,
       message: "Address created successfully",
       result: {
-        address: await Address.find({userId: req.user._id}),
+        address: await Address.find({ userId: req.user._id }),
       },
     });
   } catch (error) {

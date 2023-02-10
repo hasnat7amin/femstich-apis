@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
-const OrderSchema = new mongoose.Schema({
+const SellerOrderSchema = new mongoose.Schema({
     products: [{
         product: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Product"
         },
+        customization: [],
         quantity: {
             type: Number,
             default: 1
@@ -21,20 +22,13 @@ const OrderSchema = new mongoose.Schema({
     shippingAddress: {
         type: String
     },
-    billingAddress: {
-        type: String
-    },
     paymentMethod: {
         type: String
-    },
-    orderStatus: {
-        type: String,
-        default: "pending"
     }
 }, {
     timestamps: true
 });
 
-const Order = mongoose.model("Order", OrderSchema);
+const SellerOrder = mongoose.model("SellerOrder", SellerOrderSchema);
 
-module.exports = Order;
+module.exports = SellerOrder;

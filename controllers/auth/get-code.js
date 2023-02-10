@@ -3,6 +3,7 @@ const User = require("../../models/User");
 const generateOtp = require("../../utils/generate-otp");
 const sendEmail = require("../../utils/send-email");
 const sendErrorResponse = require("../../utils/send-error-response")
+require("dotenv/config")
 
 module.exports = async (req, res) => {
     try {
@@ -22,6 +23,7 @@ module.exports = async (req, res) => {
         })
         sendEmail({
             email: email,
+            from: process.env.SMPT_MAIL,
             subject: "no-reply OTP",
             message: "Hi!"+user.username+"\n Your OTP is : "+ tokenOtp+".\n Thanks for your cooperation.",
         })
