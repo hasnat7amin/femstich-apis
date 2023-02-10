@@ -22,7 +22,8 @@ const io = new Server(server, {
   },
 });
 
-module.exports = io;
+
+require("./chat/index")(io)
 
 /* A middleware that is used to parse the incoming request bodies in a middleware before your handlers,
 available under the req.body property. */
@@ -45,9 +46,8 @@ app.get("/", function(req, res) {
 })
 app.use("/api", api);
 
-io.on("connection", chat)
 
- 
+
 /* Connecting to the database. */
 mongoose.set("strictQuery", true); 
 mongoose
@@ -62,11 +62,13 @@ mongoose
 
 /* This is the port that the server will be listening on. */
 const port = process.env.PORT || 9000;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log("listening on port http://localhost:" + port);
 });
 
+
 module.exports = app;
+
 
 // passport.serializeUser(function (user, cb) {
 //     cb(null, user);

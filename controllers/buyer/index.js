@@ -5,6 +5,8 @@ module.exports= {
     GetProductById: require("./products/get-product-by-id"),
     LikeProduct: require("./products/like-product"),
     DislikeProduct: require("./products/dislike-product"),
+    FilterProducts: require("./products/filter-product"),
+    GetFavoritesProducts: require("./products/get-favorites-product"),
 
 
     // store 
@@ -22,4 +24,9 @@ module.exports= {
     ChangeDetails: require("./profile/change-details"),
     ChangePassword: require("./profile/change-password"),
     ContactUs: require("./profile/contact-us"),
+    LikeUser: require("./profile/like-user"),
+    DislikeUser: require("./profile/dislike-user"),
+    GetFavoriteUsers: require("./profile/get-favorite-user"),
+
+    
 }

@@ -1,5 +1,6 @@
 const Category = require("../../../models/Category");
 const Product = require("../../../models/Product");
+const User = require("../../../models/User");
 const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
@@ -12,12 +13,17 @@ module.exports = async (req, res) => {
     req.user.favourites.push(product._id);
     await req.user.save();
 
+    const user = await User.findOne({ _id: req.user._id}).select("favorites").populate({
+      path: "favorites",
+      select: "title description price images"
+    })
+
     return res.status(200).json({
       code: 200,
       status: true,
       message: "Product liked successfully",
       result: {
-        favourites: req.user.favorites,
+        favourites: user.favorites,
       },
     });
   } catch (error) {
