@@ -41,7 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", function(req, res) {
-  return res.send()
+  return res.send("Welcome to the femstich apis")
 })
 app.use("/api", api);
 
