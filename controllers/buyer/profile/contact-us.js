@@ -27,10 +27,7 @@ module.exports = async (req, res) => {
     return res.status(200).json({
       code: 200,
       status: true,
-      //   message: "password changed successfully",
-      //   result: {
-      //     token: token,
-      //   },
+      message: "Your message is dileverd to us.Thanks for contacting us.",
     });
   } catch (error) {
     sendErrorResponse(res, 400, "Failed to change password.", error.message);

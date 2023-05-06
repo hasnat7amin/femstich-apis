@@ -4,15 +4,10 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 module.exports = async (req, res) => {
   try {
     const { address, city, province, is_default } = req.body;
-
+    console.log(req.params.id)
     const user_address = await Address.findByIdAndUpdate(
       req.params.id,
-      {
-        address,
-        city,
-        province,
-        default: is_default,
-      },
+      req.body,
       { new: true }
     );
     if (!user_address) {

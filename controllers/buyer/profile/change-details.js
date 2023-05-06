@@ -3,6 +3,7 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
   try {
+    console.log("user change details api")
     await User.findByIdAndUpdate(req.user._id, req.body);
     const variables = Object.keys(req.body).join(" ").toString();
     return res.status(200).json({

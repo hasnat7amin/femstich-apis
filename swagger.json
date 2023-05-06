@@ -1,0 +1,849 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Femstich API Reference",
+    "description": "This documentation is for femstich API Reference. Please don't use it directly.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:9000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "API for users to allow in the system"
+    },
+    {
+      "name": "Buyer Addresses",
+      "description": "API for Buyer addresses."
+    },
+    {
+      "name": "Buyer Profile",
+      "description": "API for Buyer to update his profile"
+    },
+    {
+      "name": "Buyer Products",
+      "description": "API for Buyer to update his profile"
+    },
+    {
+      "name": "Buyer Store",
+      "description": "API for Buyer to update his profile"
+    }
+
+  ],
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+
+    "/api/auth/login": {
+      "post": {
+        "parameters": [
+          {
+            "name": "AddUserInfo",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the user",
+            "schema": {
+              "$ref": "#/definitions/AddUserInfo"
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/sign-up": {
+      "post": {
+        "parameters": [
+          {
+            "name": "AddUserInfo",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the user",
+            "schema": {
+              "$ref": "#/definitions/AddUserInfo"
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/get-otp": {
+      "post": {
+        "parameters": [
+          {
+            "name": "AddUserInfo",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the user",
+            "schema": {
+              "required": ["email"],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/verify-otp": {
+      "post": {
+        "parameters": [
+          {
+            "name": "OTP",
+            "in": "body",
+            "required": true,
+            "description": "please insert the opt.",
+            "schema": {
+              "required": ["otp"],
+              "properties": {
+                "otp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/reset-password": {
+      "post": {
+        "parameters": [
+          {
+            "name": "OTP",
+            "in": "body",
+            "required": true,
+            "description": "please insert the opt.",
+            "schema": {
+              "required": ["userId", "password"],
+              "properties": {
+                "userId": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/google": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/facebook": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Authenticate all users in system",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+
+
+    "/api/buyer/address/add": {
+      "post": {
+        "security": {
+          "Bearer": []
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Add Address Body",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the your address",
+            "schema": {
+              "$ref": "#/definitions/AddAddress"
+            }
+          }
+        ],
+        "tags": ["Buyer Addresses"],
+        "summary": "It's for buyer addresses he can add/get/update and delete his address.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/address/get": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Buyer Addresses"],
+        "summary": "It's for buyer addresses he can add/get/update and delete his address.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/address/update/{id}": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "address id"
+          },
+          {
+            "name": "Add Address Body",
+            "in": "body",
+            "required": true,
+            "description": "provide all the details of the your address",
+            "schema": {
+              "$ref": "#/definitions/AddAddress"
+            }
+          }
+        ],
+        "tags": ["Buyer Addresses"],
+        "summary": "It's for buyer addresses he can add/get/update and delete his address.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/address/delete/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "address id"
+          }
+        ],
+        "tags": ["Buyer Addresses"],
+        "summary": "It's for buyer addresses he can add/get/update and delete his address.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+
+
+    "/api/buyer/profile/image": {
+      "post": {
+        "consumes": ["application/json","multipart/form-data","application/x-www-form-urlencoded","binary"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "image",
+            "required": true,
+            "in": "formData",
+            "type":"file",           
+            "description": "The file to upload"
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to update his image.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/profile/change-details": {
+      "put": {
+        "consumes": ["application/json","multipart/form-data","application/x-www-form-urlencoded","binary"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "data",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ChangeUserInfo"
+            },        
+            "description": "The data to change the user's profile"
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to update his image.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/profile/change-password": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "data",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "required": ["password"],
+              "properties": {
+                "password": {
+                  "type": "string"
+                }
+              }
+            },       
+            "description": "The data to change the user's profile"
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to update his password.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/profile/contact-us": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "data",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "required": ["name","email","message"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            },       
+            "description": "The data to convey a messsage to the dev team."
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to contact with femstich's dev team.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/profile/like-user/{id}": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "user id to be liked"
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to like other users.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/profile/dislike-user/{id}": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "user id to be liked"
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to dislike other users.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/profile/favorites-user": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+         
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to get the user favorites list.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+
+
+    "/api/buyer/product/home-details": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+         
+        ],
+        "tags": ["Buyer Products"],
+        "summary": "It's for buyer to get the his home page details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/product/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id"
+          }
+         
+        ],
+        "tags": ["Buyer Products"],
+        "summary": "It's for buyer to get product by id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/product/{id}/like": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id to be liked"
+          }
+         
+        ],
+        "tags": ["Buyer Products"],
+        "summary": "It's for buyer to get product by id and like it",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/product/{id}/dislike": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id to be disliked"
+          }
+         
+        ],
+        "tags": ["Buyer Products"],
+        "summary": "It's for buyer to get product by id and dislike it",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/product/wishlist": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+         
+        ],
+        "tags": ["Buyer Products"],
+        "summary": "It's for buyer to get his wishlist",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/product/{title}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "title",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id to be disliked"
+          },
+          {
+            "name": "lte_price",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "enter less then or equal to  price"
+          },
+          {
+            "name": "gte_price",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "enter greater then or equal to price"
+          },
+          {
+            "name": "lte_avg_r",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "enter less then or equal to average rating"
+          },
+          {
+            "name": "gte_avg_r",
+            "required": true,
+            "in": "query",
+            "type": "string",
+            "description": "enter greater then or equal to average rating"
+          },
+          {
+            "name": "sort",
+            "required": true,
+            "in": "query",
+            "type": "integer",
+            "description": "enter sort by 1 for asending or -1 for desending"
+          }
+         
+        ],
+        "tags": ["Buyer Products"],
+        "summary": "It's for buyer to filter the products list",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+
+
+    "/api/buyer/store/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "store id"
+          }
+         
+        ],
+        "tags": ["Buyer Store"],
+        "summary": "It's for buyer to get store by id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+
+
+
+
+  },
+  "definitions": {
+    "User": {
+      "required": ["username", "email", "password"],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "facebookId": {
+          "type": "string"
+        },
+        "profileImage": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "integer"
+        },
+        "socketId": {
+          "type": "string"
+        },
+        "isOnline": {
+          "type": "boolean"
+        },
+        "lastOnline": {
+          "type": "datetime"
+        }
+      }
+    },
+    "AddUserInfo": {
+      "required": ["username", "email", "password"],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "ChangeUserInfo": {
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "AddAddress": {
+      "required": ["address", "city", "province"],
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

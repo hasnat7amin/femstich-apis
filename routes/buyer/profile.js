@@ -10,6 +10,6 @@ router.put("/change-password", authorize, ChangePassword);
 router.post("/contact-us",authorize,ContactUs);
 router.put("/like-user/:id", authorize,LikeUser);
 router.put("/dislike-user/:id", authorize,DislikeUser);
-router.get("/favorites-user", authorize, GetFavoriteUsers)
+router.get("/favorites-user", authorize, GetFavoriteUsers);
 
 module.exports = router;

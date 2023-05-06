@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
       price: {
         $lte: req.query.lte_price,
         $gte: req.query.gte_price,
-      },
+      },  
       averageRating: {
         $lte: req.query.lte_avg_r,
         $gte: req.query.gte_avg_r,

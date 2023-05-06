@@ -3,7 +3,7 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 
 module.exports = async (req, res) => {
   try {
-
+    console.log("api called address get")
     const address = await Address.find({userId: req.user._id}); 
     if (!address) {
         throw new Error("Address not found.");

@@ -47,7 +47,7 @@ module.exports = async (io) => {
 
         socket.emit("recieve-all-chats", { user: suser, allchats });
       });
- 
+
       // send message to other user
       socket.on("send-message", async (options) => {
         const { sender, receiver, message } = options;
@@ -148,6 +148,12 @@ module.exports = async (io) => {
           }
           await rchat.save();
           socket.emit("message-sent", "message successfully sent to receiver");
+          socket.emit(
+            "receiver-profile",
+            await User.findById(receiver).select(
+              "username prfileImage isOnline lastOnline"
+            )
+          );
         }
 
         let ruser = await User.findOne({ _id: receiver });
@@ -186,27 +192,30 @@ module.exports = async (io) => {
 
       // get user specific chat information
       socket.on("get-user-chat", async (options) => {
-        let chats = await Chat.findOne({ sender: options.sender,"chats.receiver": options.receiver });
+        let chats = await Chat.findOne({
+          sender: options.sender,
+          "chats.receiver": options.receiver,
+        });
         console.log(chats);
         if (chats == null) {
           socket.emit("receive-user-chat", { receiver: {}, messages: [] });
         } else {
           let receiver_chat = chats.chats.find((c) => {
-            if(c.receiver.toString() === options.receiver){
-              c.messages.map(message => {
+            if (c.receiver.toString() === options.receiver) {
+              c.messages.map((message) => {
                 message.read = true;
               });
               return c;
             }
           });
-          
+
           await chats.save();
-          const result = { 
-            receiver: await User.findOne({ _id: receiver_chat.receiver }).select(
-              "username prfileImage isOnline lastOnline"
-            ),
+          const result = {
+            receiver: await User.findOne({
+              _id: receiver_chat.receiver,
+            }).select("username prfileImage isOnline lastOnline"),
             messages: receiver_chat.messages,
-          }; 
+          };
           socket.emit("receive-user-chat", result);
         }
       });
