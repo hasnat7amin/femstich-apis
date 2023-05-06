@@ -9,7 +9,16 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:9000",
+  "host": "femstich.cyclic.app",
+  "servers":[
+    {
+      "url": "femstich.cyclic.app"
+    },
+    {
+      "url": "localhost:9000"
+    }
+
+  ],
   "basePath": "/",
   "tags": [
     {
