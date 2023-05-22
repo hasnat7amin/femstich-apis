@@ -13,9 +13,6 @@
   "servers": [
     {
       "url": "femstich.cyclic.app"
-    },
-    {
-      "url": "localhost:9000"
     }
   ],
   "basePath": "/",
