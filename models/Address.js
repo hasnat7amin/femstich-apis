@@ -6,6 +6,12 @@ const AddressSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    name: {
+        type: String,
+    },
+    phoneNo: {
+        type: String,
+    },
     default: {
         type: Boolean,
         default: false

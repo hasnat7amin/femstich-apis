@@ -9,15 +9,14 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "femstich.cyclic.app",
-  "servers":[
+  "host": "localhost:9000",
+  "servers": [
     {
       "url": "femstich.cyclic.app"
     },
     {
       "url": "localhost:9000"
     }
-
   ],
   "basePath": "/",
   "tags": [
@@ -31,23 +30,45 @@
     },
     {
       "name": "Buyer Profile",
-      "description": "API for Buyer to update his profile"
+      "description": "API for Buyer to curd his profile"
     },
     {
       "name": "Buyer Products",
-      "description": "API for Buyer to update his profile"
+      "description": "API for Buyer to crud his stored products."
     },
     {
       "name": "Buyer Store",
       "description": "API for Buyer to update his profile"
+    },
+    {
+      "name": "Buyer Order",
+      "description": "API for Buyer to manage his orders."
+    },
+    {
+      "name": "Seller Store",
+      "description": "API for Seller to update/get his store"
+    },
+    {
+      "name": "Seller Category",
+      "description": "API for Seller to update/get  product category"
+    },
+    {
+      "name": "Seller SubCategroy",
+      "description": "API for Seller to update/get  product SubCategroy."
+    },
+    {
+      "name": "Seller Products",
+      "description": "API for Seller to crud his products details and images."
+    },
+    {
+      "name": "Seller Order",
+      "description": "API for Seller to manage his orders."
     }
-
   ],
-  "schemes": ["https"],
+  "schemes": ["http", "https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-
     "/api/auth/login": {
       "post": {
         "parameters": [
@@ -199,8 +220,6 @@
       }
     },
 
-
-
     "/api/buyer/address/add": {
       "post": {
         "security": {
@@ -317,11 +336,14 @@
       }
     },
 
-
-
     "/api/buyer/profile/image": {
       "post": {
-        "consumes": ["application/json","multipart/form-data","application/x-www-form-urlencoded","binary"],
+        "consumes": [
+          "application/json",
+          "multipart/form-data",
+          "application/x-www-form-urlencoded",
+          "binary"
+        ],
         "parameters": [
           {
             "name": "Authorization",
@@ -334,7 +356,7 @@
             "name": "image",
             "required": true,
             "in": "formData",
-            "type":"file",           
+            "type": "file",
             "description": "The file to upload"
           }
         ],
@@ -349,7 +371,12 @@
     },
     "/api/buyer/profile/change-details": {
       "put": {
-        "consumes": ["application/json","multipart/form-data","application/x-www-form-urlencoded","binary"],
+        "consumes": [
+          "application/json",
+          "multipart/form-data",
+          "application/x-www-form-urlencoded",
+          "binary"
+        ],
         "parameters": [
           {
             "name": "Authorization",
@@ -364,7 +391,7 @@
             "in": "body",
             "schema": {
               "$ref": "#/definitions/ChangeUserInfo"
-            },        
+            },
             "description": "The data to change the user's profile"
           }
         ],
@@ -398,7 +425,7 @@
                   "type": "string"
                 }
               }
-            },       
+            },
             "description": "The data to change the user's profile"
           }
         ],
@@ -426,7 +453,7 @@
             "required": true,
             "in": "body",
             "schema": {
-              "required": ["name","email","message"],
+              "required": ["name", "email", "message"],
               "properties": {
                 "name": {
                   "type": "string"
@@ -438,7 +465,7 @@
                   "type": "string"
                 }
               }
-            },       
+            },
             "description": "The data to convey a messsage to the dev team."
           }
         ],
@@ -515,7 +542,6 @@
             "type": "string",
             "description": "auth token"
           }
-         
         ],
         "tags": ["Buyer Profile"],
         "summary": "It's for buyer profile to get the user favorites list.",
@@ -527,8 +553,6 @@
       }
     },
 
-
-
     "/api/buyer/product/home-details": {
       "get": {
         "parameters": [
@@ -539,7 +563,6 @@
             "type": "string",
             "description": "auth token"
           }
-         
         ],
         "tags": ["Buyer Products"],
         "summary": "It's for buyer to get the his home page details",
@@ -567,7 +590,6 @@
             "type": "string",
             "description": "product id"
           }
-         
         ],
         "tags": ["Buyer Products"],
         "summary": "It's for buyer to get product by id",
@@ -595,7 +617,6 @@
             "type": "string",
             "description": "product id to be liked"
           }
-         
         ],
         "tags": ["Buyer Products"],
         "summary": "It's for buyer to get product by id and like it",
@@ -623,7 +644,6 @@
             "type": "string",
             "description": "product id to be disliked"
           }
-         
         ],
         "tags": ["Buyer Products"],
         "summary": "It's for buyer to get product by id and dislike it",
@@ -634,7 +654,7 @@
         }
       }
     },
-    "/api/buyer/product/wishlist": {
+    "/api/buyer/product/get/favorites": {
       "get": {
         "parameters": [
           {
@@ -644,10 +664,9 @@
             "type": "string",
             "description": "auth token"
           }
-         
         ],
         "tags": ["Buyer Products"],
-        "summary": "It's for buyer to get his wishlist",
+        "summary": "It's for buyer to get his l",
         "responses": {
           "200": {
             "description": "OK"
@@ -707,7 +726,6 @@
             "type": "integer",
             "description": "enter sort by 1 for asending or -1 for desending"
           }
-         
         ],
         "tags": ["Buyer Products"],
         "summary": "It's for buyer to filter the products list",
@@ -718,8 +736,6 @@
         }
       }
     },
-
-
 
     "/api/buyer/store/{id}": {
       "get": {
@@ -738,10 +754,496 @@
             "type": "string",
             "description": "store id"
           }
-         
         ],
         "tags": ["Buyer Store"],
         "summary": "It's for buyer to get store by id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/api/buyer/order": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Buyer Order"],
+        "summary": "It's for buyer to get order",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddOrderInfo"
+            },
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Buyer Order"],
+        "summary": "It's for buyer to add order",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/buyer/order/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "order id"
+          }
+        ],
+        "tags": ["Buyer Order"],
+        "summary": "It's for buyer to delete order by id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+
+
+
+
+
+    "/api/seller/store": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddStoreInfo"
+            },
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Seller Store"],
+        "summary": "It's for seller to upload store details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddStoreInfo"
+            },
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Seller Store"],
+        "summary": "It's for seller to upload store details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Seller Store"],
+        "summary": "It's for seller to get store details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seller/store/change/image": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "image",
+            "required": true,
+            "in": "formData",
+            "type": "file",
+            "description": "The file to upload"
+          }
+        ],
+        "tags": ["Seller Store"],
+        "summary": "It's for seller to upload/change store image.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/api/seller/product": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddProductInfo"
+            },
+            "description": "product details"
+          }
+        ],
+        "tags": ["Seller Products"],
+        "summary": "It's for seller to upload product details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seller/product/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id"
+          }
+        ],
+        "tags": ["Seller Products"],
+        "summary": "It's for seller to get product details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddProductInfo"
+            },
+            "description": "product details"
+          }
+        ],
+        "tags": ["Seller Products"],
+        "summary": "It's for seller to update product details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id"
+          }
+        ],
+        "tags": ["Seller Products"],
+        "summary": "It's for seller to delete product details",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/api/seller/category": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "required": ["title"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "body"
+          }
+        ],
+        "tags": ["Seller Category"],
+        "summary": "It's for seller to upload categories.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Seller Category"],
+        "summary": "It's for seller to get categories.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seller/subcategory": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "Body",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "required": ["id", "title"],
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "body"
+          }
+        ],
+        "tags": ["Seller SubCategroy"],
+        "summary": "It's for seller to upload SubCategroy.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Seller SubCategroy"],
+        "summary": "It's for seller to get SubCategroy.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seller/order": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Seller Order"],
+        "summary": "It's for seler to get order",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seller/order/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "order id"
+          }
+        ],
+        "tags": ["Seller Order"],
+        "summary": "It's for seller to delete order by id",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seller/order/{id}/{status}": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "order id"
+          },
+          {
+            "name": "status",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "order status"
+          }
+        ],
+        "tags": ["Seller Order"],
+        "summary": "It's for seller to update order by id",
         "responses": {
           "200": {
             "description": "OK"
@@ -830,6 +1332,12 @@
         "address": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
+        "phoneNo": {
+          "type": "string"
+        },
         "city": {
           "type": "string"
         },
@@ -838,6 +1346,138 @@
         },
         "is_default": {
           "type": "boolean"
+        }
+      }
+    },
+    "AddStoreInfo": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "link": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddProductInfo": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price": {
+          "type": "integer"
+        },
+        "stock": {
+          "type": "integer"
+        },
+        "category": {
+          "type": "string"
+        },
+        "subcategory": {
+          "type": "string"
+        },
+        "customizationPrice":{
+          "type":"integer"
+        },
+        "customization": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "range": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "integer"
+                  },
+                  "end": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddOrderInfo":{
+      "properties": {
+        "shippingAddress": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties":{
+                "product":{
+                  "type": "string"
+                },
+                "color":{
+                  "type": "string"
+                },
+                "size":{
+                  "type": "string"
+                },
+                "quantity":{
+                  "type": "string"
+                },
+                "customization":{
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties":{
+                      "title":{
+                        "type": "string"
+                      },
+                      "range":{
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+
+
+            }
+          }
         }
       }
     },

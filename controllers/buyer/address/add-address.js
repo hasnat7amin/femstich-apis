@@ -7,6 +7,8 @@ module.exports = async (req, res) => {
 
     const user_address = await Address.create({
       userId: req.user._id,
+      name: req.body.name?req.body.name:"",
+      phoneNo: req.body.phoneNo?req.body.phoneNo:"",
       address,
       city,
       province,

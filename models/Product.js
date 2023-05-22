@@ -29,6 +29,9 @@ const ProductSchema = new mongoose.Schema(
         ref: "Review",
       },
     ],
+    customizationPrice:{
+      type: Number,
+    },
     customization: [
       {
         title: String,

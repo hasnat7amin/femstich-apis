@@ -1,33 +1,59 @@
 const mongoose = require("mongoose");
 
-const SellerOrderSchema = new mongoose.Schema({
-    products: [{
+const SellerOrderSchema = new mongoose.Schema(
+  {
+    products: [
+      {
         product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
         },
-        customization: [],
+        color: String,
+        size: String,
+        customization: [
+          {
+            title: String,
+            range: Number,
+          },
+        ],
         quantity: {
-            type: Number,
-            default: 1
-        }
-    }],
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
     total: {
-        type: Number
+      type: Number,
     },
-    user: {
+    buyerOrder: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "BuyerOrder",
+    },
+    buyer:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     shippingAddress: {
-        type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+    },
+    status:{
+        type:String,
+        default:"pending",
+        enum:["pending", "inProgress", "completed", "dilevered", "cancelled"],
     },
     paymentMethod: {
-        type: String
-    }
-}, {
-    timestamps: true
-});
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const SellerOrder = mongoose.model("SellerOrder", SellerOrderSchema);
 

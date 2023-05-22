@@ -1,33 +1,52 @@
 const mongoose = require("mongoose");
 
-const BuyerOrderSchema = new mongoose.Schema({
-    products: [{
+const BuyerOrderSchema = new mongoose.Schema(
+  {
+    products: [
+      {
         product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
         },
-        customization: [],
+        color: String,
+        size: String,
+        status:{
+          type:String,
+          default:"pending",
+          enum:["pending", "inProgress", "completed", "dilevered", "cancelled"],
+        },
+        customization: [
+          {
+            title: String,
+            range: Number,
+          },
+        ],
         quantity: {
-            type: Number,
-            default: 1
-        }
-    }],
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
     total: {
-        type: Number
+      type: Number,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+    buyer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     shippingAddress: {
-        type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
     },
     paymentMethod: {
-        type: String
-    }
-}, {
-    timestamps: true
-});
+      type: String,
+      enum:["homeDilevery"]
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const BuyerOrder = mongoose.model("BuyerOrder", BuyerOrderSchema);
 

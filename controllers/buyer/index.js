@@ -28,5 +28,14 @@ module.exports= {
     DislikeUser: require("./profile/dislike-user"),
     GetFavoriteUsers: require("./profile/get-favorite-user"),
 
+    // reviews
+    ProductReview: require("./reviews/product-review"),
+    StoreReview: require("./reviews/store-review"),
+
+    // orders
+    AddOrder: require("./orders/add_order"),
+    DeleteOrder: require("./orders/delete_order"),
+    GetOrders: require("./orders/get_order"),
+
     
 }

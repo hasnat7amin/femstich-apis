@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     
     
     const userId = req.user._id;
-    for(let id  in req.body.products){
+    for(let id  of req.body.products){
       let product = await Product.findOne({ _id: id });
       if (!product) {
         throw new Error("product not found "+id+".");
