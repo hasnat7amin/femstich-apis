@@ -2,7 +2,8 @@ const { createTransport } = require("nodemailer");
 require("dotenv/config");
 
 
-const sendEmail = async (options) => {  
+const sendEmail = async (options) => {
+    
   const transporter =  createTransport({
     host: process.env.SMPT_HOST,
     port: process.env.SMPT_PORT,

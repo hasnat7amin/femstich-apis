@@ -2,14 +2,21 @@ const Chat = require("../models/Chat");
 const User = require("../models/User");
 
 module.exports = async (io) => {
+  /**
+   * Socket.IO Chat Events
+   *
+   * @module chatEvents
+   */
   io.on("connection", (socket) => {
     if (socket != null) {
       // welcome message
+      
       socket.emit(
         "welcome",
         "welcome to chatting functionality of femstich app"
       );
-
+      
+       
       // requesting userId
       io.to(socket.id).emit("userId", "send your userId");
 
