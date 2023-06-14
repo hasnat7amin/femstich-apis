@@ -27,6 +27,7 @@ module.exports= {
     LikeUser: require("./profile/like-user"),
     DislikeUser: require("./profile/dislike-user"),
     GetFavoriteUsers: require("./profile/get-favorite-user"),
+    GetProfile : require("./profile/get-profile"),
 
     // reviews
     ProductReview: require("./reviews/product-review"),

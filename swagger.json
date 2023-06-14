@@ -435,6 +435,26 @@
         }
       }
     },
+    "/api/buyer/profile": {
+      "get": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          }
+        ],
+        "tags": ["Buyer Profile"],
+        "summary": "It's for buyer profile to get his profile.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/buyer/profile/contact-us": {
       "post": {
         "parameters": [
