@@ -21,19 +21,25 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please enter an Password"],
     minlength: [6, "Minimum password length is a 6 charachtars"],
   },
-  facebookId: String,
+  facebookId: {
+    default:"",
+    type: String,
+  },
   profileImage: {
     type: String,
     default: "",
   },
   gender: {
     type: String,
+    default: "",
     enum: ["male","female"]
   },
   phoneNumber: {
     type: Number,
+    default: 0x13
   },
   socketId: {
+    default:"",
     type: String,
   },
   isOnline: {

@@ -8,7 +8,7 @@ router.post("/", authorize, AddProduct);
 router.put("/:id",authorize, EditProduct);
 router.delete("/:id",authorize, DeleteProduct);
 router.get("/:id",authorize, GetProduct);
-router.put("/change/image",authorize, multer.array("image"),ProductImages);
+router.put("/:id/image",authorize, multer.array("image"),ProductImages);
 
  // {
     //   "name": "image",

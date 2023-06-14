@@ -75,7 +75,7 @@
             "required": true,
             "description": "provide all the details of the user",
             "schema": {
-              "$ref": "#/definitions/AddUserInfo"
+              "$ref": "#/definitions/LoginUserInfo"
             }
           }
         ],
@@ -963,6 +963,40 @@
         }
       }
     },
+    "/api/seller/product/{id}/image": {
+      "put": {
+        "parameters": [
+          {
+            "name": "Authorization",
+            "required": true,
+            "in": "header",
+            "type": "string",
+            "description": "auth token"
+          },
+          {
+            "name": "image",
+            "required": true,
+            "in": "formData",
+            "type": "file",
+            "description": "The file to upload"
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "type": "string",
+            "description": "product id"
+          }
+        ],
+        "tags": ["Seller Products"],
+        "summary": "It's for seller to upload/change store image.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
 
     "/api/seller/product": {
       "post": {
@@ -1323,6 +1357,17 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginUserInfo": {
+      "required": ["username", "password"],
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
           "type": "string"
         }
       }
