@@ -6,11 +6,13 @@ const sendErrorResponse = require("../../../utils/send-error-response");
 module.exports = async (req, res) => {
   try {
     console.log("get favorite products")
-    const user = await User.findOne({ _id: req.user._id })
-      // .populate({
-      //   path: "favorites",
-      //   select: "title description price images",
-      // });
+    const user = await User.findOne({ _id: req.user._id }).select("favorites")
+    .populate({
+      path: "favorites",
+      select: "title description price images",
+    });
+
+     
 
     if (user.favorites.length > 0) {
       return res.status(200).json({

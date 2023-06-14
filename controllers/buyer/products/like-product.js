@@ -10,13 +10,20 @@ module.exports = async (req, res) => {
       throw new Error("product not found.");
     }
 
-    req.user.favourites.push(product._id);
-    await req.user.save();
+    let userData = await User.findOne({ _id: req.user._id });
+    if (userData.favorites.length > 0) {
+      userData.favorites.push(product._id);
+    } else {
+      userData.favorites = [product._id];
+    }
+    await userData.save();
 
-    const user = await User.findOne({ _id: req.user._id}).select("favorites").populate({
-      path: "favorites",
-      select: "title description price images"
-    })
+    const user = await User.findOne({ _id: req.user._id })
+      .select("favorites")
+      .populate({
+        path: "favorites",
+        select: "title description price images",
+      });
 
     return res.status(200).json({
       code: 200,
