@@ -35,8 +35,8 @@ const UserSchema = new mongoose.Schema({
     enum: ["male","female"]
   },
   phoneNumber: {
-    type: Number,
-    default: 0x13
+    type: String,
+    default: "+92 322 1212122"
   },
   socketId: {
     default:"",

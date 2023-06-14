@@ -7,14 +7,14 @@ module.exports = async (req, res) => {
     
     
     const userId = req.user._id;
-    for(let id  of req.body.products){
+    let id = req.params.id;
       let product = await Product.findOne({ _id: id });
       if (!product) {
         throw new Error("product not found "+id+".");
       }
       await User.findByIdAndUpdate(userId, { $pull: { favorites: product._id } }, { new: true });
 
-    }
+    
     const user = await User.findById(userId).select("favorites").populate({
       path: "favorites",
       select: "title description price images"
