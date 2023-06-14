@@ -9,10 +9,10 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "femstich.cyclic.app",
+  "host": "femstich-apis-production.up.railway.app",
   "servers": [
     {
-      "url": "femstich.cyclic.app"
+      "url": "femstich-apis-production.up.railway.app"
     }
   ],
   "basePath": "/",
