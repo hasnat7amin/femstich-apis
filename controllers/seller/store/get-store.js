@@ -19,9 +19,13 @@ module.exports = async (req, res) => {
         path: "products",
       });
     if (!store) {
-      throw new Error(
-        "Oops! something went wrong.We don't find the store. Please try again"
-      );
+      return res.status(200).json({
+        code: 200,
+        status: true,
+        message: "Oops! something went wrong.We don't find the store. Please try again",
+        result: null,
+      });
+     
     }
 
     return res.status(200).json({
